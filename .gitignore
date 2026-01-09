@@ -1,4 +1,5 @@
-# Large data files - yeh GitHub pe push nahi honge
+# Large data files - yeh GitHub pe push nahi honge (too large even for LFS)
+# GitHub LFS limit is 2GB per file, but train.csv is 2.6GB
 data/raw/interview_questions.json
 data/processed/train.csv
 data/processed/val.csv
