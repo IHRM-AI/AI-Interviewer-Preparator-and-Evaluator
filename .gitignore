@@ -1,0 +1,38 @@
+# Large data files - yeh GitHub pe push nahi honge
+data/raw/interview_questions.json
+data/processed/train.csv
+data/processed/val.csv
+data/processed/X_train.pkl
+data/processed/y_train.pkl
+data/processed/tfidf_vectorizer.pkl
+
+# Model files - bhi bahut bade hain
+model/*.h5
+model/*.pt
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environment
+venv/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
+data/processed/train_temp.csv
