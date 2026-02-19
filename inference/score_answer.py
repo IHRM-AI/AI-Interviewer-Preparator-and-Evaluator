@@ -40,4 +40,5 @@ def score_answer(question, ideal_answer, user_answer):
     score = model.predict(X.toarray(), verbose=0)[0][0]
     
     # Score ko 0-100 scale mein convert karo aur round off karo
-    return round(score * 100, 2)
+    # numpy.float32 ko plain Python float banaya taaki JSON serialize ho sake
+    return round(float(score) * 100, 2)
