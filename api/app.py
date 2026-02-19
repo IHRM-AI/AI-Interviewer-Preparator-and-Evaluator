@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional, Union
 import sys
 from pathlib import Path
 
@@ -11,6 +11,7 @@ sys.path.insert(0, str(parent_dir))
 from inference.score_answer import score_answer
 from inference.adaptive_logic import next_difficulty
 from inference.analytics import generate_report
+from inference.question_selector import generate_next_question
 from inference.metadata import get_metadata
 
 # FastAPI app banaye
@@ -39,6 +40,14 @@ class DifficultyRequest(BaseModel):
 
 class AnalyticsRequest(BaseModel):
     scores: List[float]
+
+class NextQuestionRequest(BaseModel):
+    role: Optional[str] = None
+    experience: Optional[str] = None
+    categories: Optional[List[str]] = None
+    difficulty: Optional[Union[int, str]] = None
+    score: Optional[float] = None
+    asked_questions: Optional[List[str]] = None
 
 # Root endpoint - just to check if API is running
 @app.get("/")
@@ -91,6 +100,28 @@ def get_analytics(data: AnalyticsRequest):
     report = generate_report(data.scores)
     
     return report
+
+# Next question endpoint
+@app.post("/generate_next_question")
+def generate_question(data: NextQuestionRequest):
+    """
+    User config + score/past questions ke basis pe next question select karta hai
+    """
+    question = generate_next_question(
+        role=data.role,
+        experience=data.experience,
+        categories=data.categories,
+        difficulty=data.difficulty,
+        score=data.score,
+        asked_questions=data.asked_questions,
+    )
+
+    if not question:
+        return {
+            "error": "No matching question found",
+        }
+
+    return question
 
 # Metadata endpoint - categories, difficulty, experience, roles
 @app.get("/metadata")
