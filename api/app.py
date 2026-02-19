@@ -11,6 +11,7 @@ sys.path.insert(0, str(parent_dir))
 from inference.score_answer import score_answer
 from inference.adaptive_logic import next_difficulty
 from inference.analytics import generate_report
+from inference.metadata import get_metadata
 
 # FastAPI app banaye
 app = FastAPI()
@@ -90,3 +91,11 @@ def get_analytics(data: AnalyticsRequest):
     report = generate_report(data.scores)
     
     return report
+
+# Metadata endpoint - categories, difficulty, experience, roles
+@app.get("/metadata")
+def metadata():
+    """
+    Dataset se unique categories, difficulties, experiences aur roles return karta hai
+    """
+    return get_metadata()
