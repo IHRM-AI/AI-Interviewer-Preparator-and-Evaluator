@@ -92,3 +92,8 @@ SANSAL-AI Interview/
 - Model training ke baad hi inference use kar sakte ho
 - API server ko inference files ke saath use karo
 # SANSAL--AI-Interview
+
+
+
+
+#new running command: cd 'SANSAL-AI Interview'; .\.venv\Scripts\Activate.ps1; python -m uvicorn api.app:app --reload --host 0.0.0.0 --port 8000
